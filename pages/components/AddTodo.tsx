@@ -1,15 +1,18 @@
+import { Todo } from "@/pages/types";
 import { Button, HStack, Input, useToast } from "@chakra-ui/react";
 import { nanoid } from "nanoid";
 import { useState } from "react";
 
-const AddTodo = ({ addTodo }) => {
-  const [content, setContent] = useState("");
+type Props = {
+  addTodo: (todo: Todo) => void;
+};
+
+const AddTodo: React.FC<Props> = ({ addTodo }) => {
+  const [content, setContent] = useState<string>("");
 
   const toast = useToast();
 
-  function handleSubmit(e) {
-    console.log("!!");
-
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!content) {
@@ -21,22 +24,20 @@ const AddTodo = ({ addTodo }) => {
       });
       return;
     }
-    console.log(content);
-    const todo = {
+    const todo: Todo = {
       id: nanoid(),
       body: content,
     };
-    console.log(todo);
     addTodo(todo);
     setContent("");
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
-      <HStack mt="8">
+      <HStack mb="8">
         <Input
           variant="filled"
-          placeholder="learning chakraui with todo app"
+          placeholder="task name"
           value={content}
           onChange={(e) => setContent(e.target.value)}
         />

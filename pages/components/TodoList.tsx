@@ -1,3 +1,4 @@
+import { Todo } from "@/pages/types";
 import {
   Badge,
   HStack,
@@ -9,14 +10,9 @@ import {
 } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 
-type Todo = {
-  id: number;
-  body: string;
-};
-
 type Props = {
   todos: Todo[];
-  deleteTodo: (id: number) => void;
+  deleteTodo: (id: string) => void;
 };
 
 const TodoList: React.FC<Props> = ({ todos, deleteTodo }) => {
